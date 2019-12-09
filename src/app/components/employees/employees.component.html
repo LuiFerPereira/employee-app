@@ -1,0 +1,42 @@
+<h1 class="animated fadeIn fast">Employees API</h1>
+<hr>
+<div class="animated fadeIn">
+
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="ID employee"
+        (keyup.enter)="searchEmployee(inputID.value)" #inputID>
+        <button (click)="searchEmployee(inputID.value)"
+            class="btn btn-outline-primary my-2 my-sm-0" type="button">Search</button>
+    </form>
+    <br/>
+    <br/>
+    <table *ngIf="employees.length > 0" class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Role</th>
+            <th scope="col">Contract Type</th>
+            <th style="text-align: right;" scope="col">Salary</th>
+            <th style="text-align: right;" scope="col">Annual Salary</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employees;">
+            <th scope="row">{{employee.id}}</th>
+            <td>{{employee.name}}</td>
+            <td>{{employee.role.name}}</td>
+            <td>{{employee.contractType}}</td>
+            <td style="text-align: right;">{{ (employee.contractType === 'MonthlySalaryEmployee' ? employee.monthlySalary : employee.hourlySalary) | currency}}</td>
+            <td style="text-align: right;">{{employee.annualSalary | currency}}</td>
+          </tr>
+        </tbody>
+    </table>
+    <div *ngIf="employees.length == 0" class="row animated fadeIn fast">
+      <div class="col-md-12">
+        <div class="alert alert-info" role="alert">
+          Employee not found
+        </div>
+      </div>
+    </div>
+</div>
